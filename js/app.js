@@ -31,6 +31,12 @@ document.addEventListener('deleteTodo', ({ detail: index }) => {
     renderTodos(todos, todoList);  // Listeyi yeniden render et
 });
 
+// Görev düzeltme
+document.addEventListener('editTodo', ({ detail: index }) => {
+    todos.splice(index, 1);  // Silme işlemi
+    saveTodos(todos);  // Güncellenmiş listeyi sakla
+    renderTodos(todos, todoList);  // Listeyi yeniden render et
+});
 
 // Sayfa yüklendiğinde görevleri listele
 document.addEventListener("DOMContentLoaded",() => renderTodos(todos, todoList));

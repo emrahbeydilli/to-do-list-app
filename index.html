@@ -34,7 +34,7 @@
                         Birinci Madde
                     </div>
                     <div>
-                        <button class="btn btn-success btn-sm">
+                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editModal">
                             <i class="fa fa-pencil-square-o"></i>
                         </button>
                         <button class="btn btn-danger btn-sm">
@@ -44,8 +44,27 @@
                 </li> -->
             </ul>
         </div>
-
     </main>
+
+    <!-- Düzenleme Modalı -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Görev Düzenle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="editInput" class="form-control" placeholder="Düzenle...">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cancelEditButton" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" id="saveEditButton" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="js/app.js"></script>
 </body>
 

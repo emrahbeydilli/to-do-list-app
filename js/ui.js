@@ -21,6 +21,7 @@ const createButtonElement = (faCode,bsCode,buttonType,index) => {
 
 const createBadgeElement = (date,bsCode) => {
     const span = document.createElement("span");
+    span.setAttribute("contenteditable",true);
     span.setAttribute("class",`badge ${bsCode}`);
     span.textContent = date;
 

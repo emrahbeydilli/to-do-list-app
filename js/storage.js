@@ -1,26 +1,30 @@
 // storage.js
 import { getDate } from "./utils/date.js";
-export function loadTodos() {
+
+export const loadTodos = () => {
     return JSON.parse(localStorage.getItem('todos')) || [];
 }
 
-export function saveTodos(todos) {
+const saveTodos = (todos) => {
     localStorage.setItem('todos', JSON.stringify(todos));
 }
 
-export function deleteTodo(index) {
+export const deleteTodo = (index) => {
     const todos = loadTodos();
     todos.splice(index, 1);
     saveTodos(todos);
 }
 
-export function updateTodo(index, newTodo) {
+export const updateTodo = (index, updatedTodo) => {
     const todos = loadTodos();
-    todos[index] = newTodo;
+    todos[index] = {
+        text: updatedTodo,
+        date: getDate()
+    };
     saveTodos(todos);
 }
 
-export function addTodo(todo) {
+export const addTodo = (todo) => {
     const todos = loadTodos();
     const newTodo = {
         text: todo,

@@ -6,8 +6,6 @@ const todoInput = document.getElementById('todo-input');
 const todoList = document.getElementById('todo-list');
 const addButton = document.getElementById('add-button');
 
-// Görevleri yükle ve listeyi render et
-renderTodos(loadTodos(), todoList);
 
 // Yeni görev ekleme
 addButton.addEventListener('click', () => {
@@ -26,3 +24,8 @@ window.deleteTodo = (index) => {
 };
 
 
+
+// Görevleri yükle ve listeyi render et
+document.addEventListener("DOMContentLoaded",() => {
+    renderTodos(loadTodos(), todoList);
+})

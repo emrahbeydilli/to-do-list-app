@@ -1,46 +1,28 @@
-import { loadTodos, saveTodos } from './storage.js';
-import { renderTodos } from "./ui.js";
-import { getDate } from "./date.js";
-
+// app.js
+import { loadTodos, saveTodos, deleteTodo, updateTodo, addTodo } from './storage.js';
+import { renderTodos, clearInput } from "./ui.js";
 
 const todoInput = document.getElementById('todo-input');
 const todoList = document.getElementById('todo-list');
 const addButton = document.getElementById('add-button');
 
-let todos = loadTodos();  // Yerel depolama ile görevleri yükle
+// Görevleri yükle ve listeyi render et
+renderTodos(loadTodos(), todoList);
 
-// Görev ekleme
-const addTodo = () => {
-    const todoText = todoInput.value.trim();
-
-    if (!todoText) {
-        alert("Lütfen bir görev girin!");
-        return;
+// Yeni görev ekleme
+addButton.addEventListener('click', () => {
+    const todo = todoInput.value.trim();
+    if (todo) {
+        addTodo(todo);
+        renderTodos(loadTodos(), todoList);
+        clearInput(todoInput);
     }
-    const newTodo = { text: todoText, date: getDate() };
-    todos.push(newTodo);
-    saveTodos(todos);
-    renderTodos(todos, todoList);  // Listeyi yeniden render et
-    todoInput.value = "";  // Giriş alanını temizle
-}
+});
 
 // Görev silme
-document.addEventListener('deleteTodo', ({ detail: index }) => {
-    todos.splice(index, 1);  // Silme işlemi
-    saveTodos(todos);  // Güncellenmiş listeyi sakla
-    renderTodos(todos, todoList);  // Listeyi yeniden render et
-});
+window.deleteTodo = (index) => {
+    deleteTodo(index);
+    renderTodos(loadTodos(), todoList);
+};
 
-// Görev düzeltme
-document.addEventListener('editTodo', ({ detail: index }) => {
-    console.log("editing todo",index);
-});
 
-// Sayfa yüklendiğinde görevleri listele
-document.addEventListener("DOMContentLoaded",() => renderTodos(todos, todoList));
-
-// Buton tıklama ile görev ekleme
-addButton.addEventListener('click', addTodo);
-
-// Klavye ile Enter tuşu ile görev ekleme
-todoInput.addEventListener("keypress",(e) => e.key === "Enter" && addTodo());

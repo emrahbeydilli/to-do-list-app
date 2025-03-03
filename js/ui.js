@@ -10,8 +10,7 @@ export const renderTodos = (todos, todoListElement) => {
                 ${todo.text}
             </div>
             <div>
-                <button class="btn btn-success btn-sm" onclick="editTodo(${index})" data-bs-toggle="modal"
-                        data-bs-target="#edit-modal">
+                <button class="btn btn-success btn-sm" onclick="editTodo(${index})">
                     <i class="fa fa-pencil-square-o"></i>
                 </button>
                 <button class="btn btn-danger btn-sm" onclick="deleteTodo(${index})">

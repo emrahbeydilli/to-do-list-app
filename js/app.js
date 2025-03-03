@@ -15,11 +15,13 @@ let editingIndex = null;
 
 const addButtonClick = () => {
     const todo = todoInput.value.trim();
-    if (todo) {
-        addTodo(todo);
-        renderTodos(loadTodos(), todoList);
-        clearInput(todoInput);
+    if (!todo) {
+        alert("Yapılacaklar boş bırakılamaz!");
+        return;
     }
+    addTodo(todo);
+    renderTodos(loadTodos(), todoList);
+    clearInput(todoInput);
 }
 
 // Yeni görev ekleme
@@ -32,11 +34,12 @@ window.deleteTodo = (index) => {
     renderTodos(loadTodos(), todoList);
 };
 
-// Görev Silme
+// Görev düzeltme
 window.editTodo = (index) => {
     editingIndex = index;
     const todo = loadTodos()[index];
     editInput.value = todo.text;
+    modal.show();
 }
 
 
@@ -48,9 +51,11 @@ document.addEventListener("DOMContentLoaded",() => {
 // Modaldaki "Kaydet" butonuna tıklama işlemi
 saveEditButton.addEventListener("click",() => {
     const modalInput = editInput.value;
-    if (modalInput) {
-        updateTodo(editingIndex,modalInput);
-        renderTodos(loadTodos(),todoList);
-        modal.hide();
+    if (!modalInput) {
+        alert("Yapılacaklar boş bırakılamaz!");
+        return;
     }
+    updateTodo(editingIndex,modalInput);
+    renderTodos(loadTodos(),todoList);
+    modal.hide();
 });

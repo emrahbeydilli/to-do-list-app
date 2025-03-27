@@ -26,7 +26,7 @@
 
         <!-- Yeni Görev Ekleme -->
         <div class="d-flex w-50 mx-auto">
-            <input type="text" class="form-control" id="todo-input">
+            <input type="text" class="form-control" id="todo-input" placeholder="Yeni bir görev ekleyin...">
             <button class="btn btn-primary ms-2" id="add-button">
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
@@ -39,8 +39,7 @@
                     <span class="badge bg-info text-dark">26 Şubat 2025</span> Birinci Madde
                 </div>
                 <div>
-                    <button class="btn btn-success btn-sm" id="edit-button" data-bs-toggle="modal"
-                        data-bs-target="#edit-modal">
+                    <button class="btn btn-success btn-sm" id="edit-button">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </button>
                     <button class="btn btn-danger btn-sm" id="delete-button">
@@ -52,28 +51,26 @@
 
     </main>
 
-    <!-- The Modal -->
-    <div class="modal fade" id="edit-modal">
+    <!-- Modal -->
+    <div class="modal fade" tabindex="-1" id="edit-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Düzenle</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title">Listeyi Düzenle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
-                <!-- Modal body -->
+                <!-- Modal Body -->
                 <div class="modal-body">
                     <input type="text" id="edit-input" class="form-control">
                 </div>
-
-                <!-- Modal footer -->
+                <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" id="cancel-edit-button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                    <button type="button" id="save-edit-button" class="btn btn-primary">Kaydet</button>
+                    <!-- İptal Butonu -->
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+                    <!-- Kaydet Butonu -->
+                    <button type="button" class="btn btn-success" id="save-edit-button">Kaydet</button>
                 </div>
-
             </div>
         </div>
     </div>

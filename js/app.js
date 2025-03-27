@@ -1,61 +1,60 @@
 // app.js
-import { loadTodos, deleteTodo, updateTodo, addTodo } from './storage.js';
-import { renderTodos, clearInput } from "./ui.js";
+import { addTodo, deleteTodo, loadTodos, updateTodo } from "./storage.js";
+import { clearInput, renderTodos } from "./ui.js";
 
-const todoInput = document.getElementById('todo-input');
-const todoList = document.getElementById('todo-list');
-const addButton = document.getElementById('add-button');
-const editInput = document.getElementById('edit-input');
-const saveEditButton = document.getElementById('save-edit-button');
-const modal = new bootstrap.Modal(document.getElementById('edit-modal'));
+// JS'in etkileşime gireceği HTML öğeleri tanımlama
+const todoInput = document.getElementById("todo-input");
+const addButton = document.getElementById("add-button");
+const todoList = document.getElementById("todo-list");
+const editInput = document.getElementById("edit-input");
+const saveEditButton = document.getElementById("save-edit-button");
+// Javascript ile Modal tanımlama
+const editModal = new bootstrap.Modal(document.getElementById('edit-modal'));
 
-// Başlangıç editing index değeri
+// Güncelleme işlemi için editTodo ile gelen index'i tutacak bir global değişken tanımalama
 let editingIndex = null;
 
-
-const addButtonClick = () => {
+const addTodoToLocalStorage = () => {
+    // Input girişindeki string bilgi al ve sağ-sol boşlukları temizle
     const todo = todoInput.value.trim();
+    // Eğer input girişinde herhangi birşey yazılmamışsa uyarı ver ve işlemi sonlandır
     if (!todo) {
-        alert("Yapılacaklar boş bırakılamaz!");
-        return;
+        alert("Yapılacak bir öğe giriniz!");
+        return; /*Geri kalan kodları çalıştırma*/
     }
+    // Input girişinde birşeyler yazılmışsa ekleme işlevini çağır
     addTodo(todo);
-    renderTodos(loadTodos(), todoList);
+    renderTodos(loadTodos(),todoList);
     clearInput(todoInput);
 }
 
-// Yeni görev ekleme
-addButton.addEventListener('click',addButtonClick);
-todoInput.addEventListener("keypress",(e) => e.key === "Enter" && addButtonClick());
+// addButton'a tıklanınca todo ekleme işlemi
+addButton.addEventListener("click",addTodoToLocalStorage);
+// Enter'a basınca todo ekleme işlemi
+todoInput.addEventListener("keypress",(event) => event.key === "Enter" && addTodoToLocalStorage() );
 
-// Görev silme
-window.deleteTodo = (index) => {
+// Silme butonu işlevi
+window.deleteTodoFromLocalStorage = (index) =>{
     deleteTodo(index);
-    renderTodos(loadTodos(), todoList);
-};
-
-// Görev düzeltme
-window.editTodo = (index) => {
-    editingIndex = index;
-    const todo = loadTodos()[index];
-    editInput.value = todo.text;
-    modal.show();
+    renderTodos(loadTodos(),todoList);
 }
 
+// Düzenleme butonu işlevi
+window.editTodo = (index) => {
+    const todos = loadTodos();
+    const todo = todos[index];
+    editInput.value = todo.text;
+    editingIndex = index;
+}
 
-// Görevleri yükle ve listeyi render et
-document.addEventListener("DOMContentLoaded",() => {
-    renderTodos(loadTodos(), todoList);
-})
+// todos dizisini uygulama ilk açıldığında yükleme
+document.addEventListener("DOMContentLoaded",() => renderTodos(loadTodos(),todoList));
 
-// Modaldaki "Kaydet" butonuna tıklama işlemi
+// Kaydetme butonu işlevi
 saveEditButton.addEventListener("click",() => {
-    const modalInput = editInput.value;
-    if (!modalInput) {
-        alert("Yapılacaklar boş bırakılamaz!");
-        return;
+    if (editInput.value) {
+        updateTodo(editingIndex,editInput.value);
+        renderTodos(loadTodos(),todoList);
+        editModal.hide();
     }
-    updateTodo(editingIndex,modalInput);
-    renderTodos(loadTodos(),todoList);
-    modal.hide();
 });

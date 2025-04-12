@@ -19,7 +19,7 @@ export const renderTodos = (todos, todoListElement) => {
             </div>
             <div>
 
-                <button class="btn btn-success btn-sm" id="edit-button"
+                <button class="btn btn-success btn-sm"
                 onclick="editTodo(${index})" data-bs-toggle="modal" data-bs-target="#edit-modal">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </button>
